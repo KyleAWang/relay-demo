@@ -9,7 +9,7 @@ const APP_PORT = 3002;
 const GRAPHQL_PORT = 8080;
 
 const graphQLServer = express();
-graphQLServer.use('/', graphQLHTTP({schema, pretty: true}));
+graphQLServer.use('/', graphQLHTTP({schema, pretty: true,graphiql: true}));
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(
     `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`
 ));

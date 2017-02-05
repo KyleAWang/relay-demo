@@ -1,29 +1,22 @@
 # order items
 type Item {
-  # The ID of an object
-  id: ID!
+  itemId: Int
   name: String
   price: Float
   quantity: Int
   url: String
 }
 
-# A connection to a list of items.
-type itemConnection {
-  # Information to aid in pagination.
-  pageInfo: PageInfo!
-
-  # A list of edges.
-  edges: [itemEdge]
+input ItemInput {
+  itemId: Int
+  name: String
+  price: Float
+  quantity: Int
+  url: String
 }
 
-# An edge in a connection.
-type itemEdge {
-  # The item at the end of the edge
-  node: Item
-
-  # A cursor for use in pagination
-  cursor: String!
+type Mutation {
+  orderMutation(input: OrderMutationInput!): OrderMutationPayload
 }
 
 # An object with an ID
@@ -33,13 +26,12 @@ interface Node {
 }
 
 # an order
-type Order implements Node {
-  # The ID of an object
-  id: ID!
+type Order {
   subtotal: Float
+  orderId: String
 
   # product items
-  items(after: String, first: Int, before: String, last: Int): itemConnection
+  items: [Item]
 }
 
 # A connection to a list of items.
@@ -60,8 +52,21 @@ type orderEdge {
   cursor: String!
 }
 
+input OrderMutationInput {
+  orderId: String!
+  subtotal: Float!
+  items: [ItemInput]
+  clientMutationId: String
+}
+
+type OrderMutationPayload {
+  order: Order
+  orders: Orders
+  clientMutationId: String
+}
+
 # a list of orders 
-type Orders implements Node {
+type Orders {
   # The ID of an object
   id: ID!
 
@@ -85,10 +90,11 @@ type PageInfo {
 }
 
 type Query {
+  orders: Orders
+
   # Fetches an object given its ID
   node(
     # The ID of an object
     id: ID!
   ): Node
-  orders: Orders
 }

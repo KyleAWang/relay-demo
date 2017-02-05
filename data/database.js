@@ -1,3 +1,11 @@
+// export class Orders{
+//     constructor(orders){
+//         this._orders = orders;
+//     }
+//     set orders (orders) {this._orders = orders}
+//     get orders () {return this._orders}
+// }
+
 export class Order{
     constructor(orderId, items, subtotal){
         this._orderId = orderId;
@@ -10,17 +18,18 @@ export class Order{
     get items () {return this._items}
     set subtotal (subtotal) {this._subtotal = subtotal}
     get subtotal () {return this._subtotal}
-
 }
 
 export class Item{
-    constructor(name, price, quantity, url){
-
+    constructor(name, price, quantity, url, itemId){
+        this._itemId = itemId;
         this._name = name;
         this._price = price;
         this._quantity = quantity;
         this._url = url;
     }
+    set itemId (itemId) {this._itemId = itemId};
+    get itemId () {return this._itemId};
     set name (name) {this._name = name}
     get name () {return this._name}
     set price (price) {this._price = price}
@@ -30,31 +39,52 @@ export class Item{
     set url (url) {this._url = url}
     get url () {return this._url}
 }
+// let orders = new Orders();
+const order = new Order();
+order.id = '20160701156133';
+order.subtotal = 305.8;
 
+const items = [];
 const orders = [];
+
 (function () {
     let items=[], items1=[], items2=[];
-    items.push(new Item('Swisse 血橙美肤饮料 500ml 促进生成胶原蛋白', 22, 1, 'http://www.wellcome.co.nz/product-708.html'));
-    items.push(new Item('Ecostore 纯天然温和羊奶皂 80克', 2.45, 1, 'http://www.wellcome.co.nz/product-1094.html'));
-    orders.push(new Order('20160701156133', items, 205.8));
+    items.push(new Item('Swisse 血橙美肤饮料 500ml 促进生成胶原蛋白', 22, 1, 'http://www.wellcome.co.nz/product-708.html', 11));
+    items.push(new Item('Ecostore 纯天然温和羊奶皂 80克', 2.45, 1, 'http://www.wellcome.co.nz/product-1094.html', 12));
+    items.push(new Item('Ecostore 纯天然温和羊奶皂 90克', 3.45, 1, 'http://www.wellcome.co.nz/product-1094.html', 13));
+    orders.push(new Order('20160701156133', items, 105.8));
 
     items1.push(new Item('Swisse 血橙美肤饮料 500ml 促进生成胶原蛋白', 22, 1, 'http://www.wellcome.co.nz/product-708.html'));
     items1.push(new Item('Ecostore 纯天然温和羊奶皂 80克', 2.45, 1, 'http://www.wellcome.co.nz/product-1094.html'));
-    orders.push(new Order('20160701156134', items, 205.8));
+    orders.push(new Order('20160701156134', items1, 205.8));
 
     items2.push(new Item('Swisse 血橙美肤饮料 500ml 促进生成胶原蛋白', 22, 1, 'http://www.wellcome.co.nz/product-708.html'));
     items2.push(new Item('Ecostore 纯天然温和羊奶皂 80克', 2.45, 1, 'http://www.wellcome.co.nz/product-1094.html'));
-    orders.push(new Order('20160701156135', items2, 205.8));
+    orders.push(new Order('20160701156135', items2, 305.8));
+
 })();
 
 export function getOrders() {
     return orders;
 }
 
-export function getOrder(id) {
-    return orders.find(o => o.id === id);
+export function getOrder(orderId) {
+    console.log('db.getorder_id', orderId);
+    console.log(orders.find(order=> order.orderId === orderId));
+    return orders.find(order=> order.orderId === orderId);
 }
 
-export function getItems(order) {
-    return orders.find(o => o.id === order.id).items;
+export function getItems() {
+    console.log('items:', items);
+    return items;
+}
+
+export function newOrder(orderId, subTotal,items){
+    console.log('orderId:', orderId, '  subtotal:', subTotal);
+    let _order = new Order();
+    _order.orderId = orderId;
+    _order.subtotal = subTotal;
+    _order.items = items;
+    orders.push(_order);
+    return _order;
 }
