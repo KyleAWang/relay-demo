@@ -7,6 +7,7 @@ import {
     GraphQLList,
     GraphQLNonNull,
     GraphQLInputObjectType,
+    GraphQLID
 } from 'graphql'
 
 import {
@@ -19,6 +20,7 @@ import {
     mutationWithClientMutationId
 } from 'graphql-relay'
 
+
 import {
     Order,
     Item,
@@ -28,6 +30,8 @@ import {
     getItems,
     newOrder
 } from './database'
+
+import Q from 'q';
 
 const {nodeInterface, nodeField} = nodeDefinitions(
     (globalId) => {
@@ -57,10 +61,9 @@ const ordersType = new GraphQLObjectType({
     fields: () => ({
         id: globalIdField('Orders'),
         orders: {
-            type: orderConnection,
+            type: new GraphQLList(orderType),
             description: 'orders',
-            args: connectionArgs,
-            resolve: (args) => connectionFromArray(getOrders(), args),
+            resolve: () => getOrders,
         },
     }),
     // interfaces: [nodeInterface],
@@ -70,19 +73,27 @@ const orderType = new GraphQLObjectType({
     name: 'Order',
     description: 'an order',
     fields: () => ({
-        // id: globalIdField('Order'),
-        subtotal: {
-            type: GraphQLFloat,
-            resolve: (order) => order.subtotal,
-        },
-        orderId: {
-            type: GraphQLString,
-            resolve: (order) => order.orderId,
+        _id: {
+            type: new GraphQLNonNull(GraphQLID)
         },
         items: {
             type: new GraphQLList(itemType),
-            description: 'product items',
-            resolve: (order) => order.items,
+            resolve: (order) => {
+                console.log('items', order.items);
+                return order.items;
+            }
+        },
+        subtotal: {
+            type: GraphQLFloat,
+            resolve: (order) => {
+                return order.subtotal;
+            }
+        },
+        orderId: {
+            type: GraphQLString,
+            resolve: (order) => {
+                return order.orderId;
+            },
         },
     }),
     // interfaces: [nodeInterface],
@@ -119,27 +130,31 @@ const itemType = new GraphQLObjectType({
     name: 'Item',
     description: 'order items',
     fields: () => ({
-        // id: globalIdField('Item'),
-        itemId: {
-            type: GraphQLInt,
-            resolve: (item) => item.itemId,
+        _id: {
+            type: new GraphQLNonNull(GraphQLID)
         },
         name: {
             type: GraphQLString,
-            resolve: (item) => item.name
+            resolve: (item) => {
+                return item.name;
+            }
         },
         price: {
             type: GraphQLFloat,
-            resolve: (item) => item.price,
+            resolve: (item) => {
+                return item.price;
+            }
         },
         quantity: {
             type: GraphQLInt,
-            resolve: (item) => item.quantity,
+            resolve: (item) => {
+                return item.quantity;
+            }
         },
-        url: {
-            type: GraphQLString,
-            resolve: (item) => item.url,
-        }
+        // url: {
+        //     type: GraphQLString,
+        //     resolve: (item) => item.url,
+        // }
     })
 });
 
@@ -170,7 +185,16 @@ const OrderMutation = mutationWithClientMutationId({
         },
         orders: {
             type: ordersType,
-            resolve: () => getOrders()
+            resolve: () => {
+                Q.fcall(getOrders())
+                    .then(function (orders) {
+                        return orders;
+                    })
+                    .catch(function (err) {
+                        return null;
+                    })
+
+            }
         }
     },
     mutateAndGetPayload: ({orderId, subtotal, items}) => {
@@ -190,10 +214,9 @@ const queryType = new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
         orders: {
-            type: ordersType,
-            resolve: (root)=> getOrders()
+            type: new GraphQLList(orderType),
+            resolve: getOrders
         },
-        node: nodeField,
     })
 });
 

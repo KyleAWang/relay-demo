@@ -213,12 +213,6 @@ export default Relay.createContainer(App, {
                     node{
                         orderId,
                         subtotal,
-                        items{
-                            price,
-                            quantity,
-                            name,
-                            itemId
-                        }
                     }
                 }
             }

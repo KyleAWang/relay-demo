@@ -26,12 +26,6 @@ export default class OrderMutation extends Relay.Mutation {
                 order {
                     orderId,
                     subtotal,
-                    items{
-                        price,
-                        quantity,
-                        name,
-                        itemId
-                    }
                 }
             }
         `
@@ -46,12 +40,6 @@ export default class OrderMutation extends Relay.Mutation {
                     order {
                         orderId,
                         subtotal,
-                        items{
-                            price,
-                            quantity,
-                            name,
-                            itemId
-                        }
                     } 
                 }
                 `

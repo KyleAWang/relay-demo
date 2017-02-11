@@ -3,10 +3,17 @@ import graphQLHTTP from 'express-graphql';
 import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import {schema} from './data/schema';
+// import {schema} from './data/schema';
+import schema from './data/elegantSchema';
+import mongoose from './config/mongoose'
 
 const APP_PORT = 3002;
 const GRAPHQL_PORT = 8080;
+
+
+mongoose.connect(function (db) {
+    console.log('connect');
+});
 
 const graphQLServer = express();
 graphQLServer.use('/', graphQLHTTP({schema, pretty: true,graphiql: true}));
