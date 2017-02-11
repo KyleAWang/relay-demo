@@ -13,19 +13,10 @@ import {
 } from './order/OrderQL';
 
 
-let viewerType = new GraphQLObjectType({
-    name: 'viewer',
-    fields: () => ({
-        orders: OrderQueries.orders,
-    })
-});
-
 let RootQuery = new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
-        viewer: {
-            type: viewerType
-        }
+        orders: OrderQueries.orders
     })
 });
 
