@@ -9,19 +9,35 @@ import {
 } from 'graphql';
 
 import {
-    OrderQueries
+    OrderQueries,
+    OrderMutations
 } from './order/OrderQL';
 
 
-let RootQuery = new GraphQLObjectType({
-    name: 'Query',
+// const RootQuery = new GraphQLObjectType({
+//     name: 'Query',
+//     fields: () => ({
+//         orders: OrderQueries.orders
+//     })
+// });
+
+const RootQuery = new GraphQLObjectType({
+    name: 'Root',
+    fields: {
+        viewer: OrderQueries.viewer,
+    }
+});
+
+const RootMutation = new GraphQLObjectType({
+    name: 'Mutation',
     fields: () => ({
-        orders: OrderQueries.orders
+        addOrder: OrderMutations.addOrder
     })
 });
 
-let schema = new GraphQLSchema({
+const schema = new GraphQLSchema({
     query: RootQuery,
+    mutation: RootMutation
 });
 
 export default schema;

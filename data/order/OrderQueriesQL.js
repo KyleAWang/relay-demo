@@ -9,5 +9,9 @@ export default {
     orders: {
         type: new GraphQLList(OrderType),
         resolve: OrderDB.getOrders,
+    },
+    viewer: {
+        type: new GraphQLList(OrderType),
+        resolve: OrderDB.getViewer,
     }
 }

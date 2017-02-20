@@ -8,9 +8,20 @@ mongooseaa.loadModels();
 
 const OrderDB = mongoose.model('Order');
 
+module.exports = OrderDB;
+
 
 
 module.exports.getOrders = () => {
     let promise = OrderDB.find().select().exec();
+    return promise;
+};
+
+module.exports.getViewer = () => {
+    let promise = OrderDB.find().select().exec();
+    promise.then((orders)=>{
+
+        console.log(orders);
+    });
     return promise;
 };

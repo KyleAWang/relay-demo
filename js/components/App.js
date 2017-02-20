@@ -3,14 +3,14 @@ import Relay from 'react-relay';
 import OrderMutation from '../mutation/OrderMutation';
 
 class App extends React.Component {
-    constructor(){
+    constructor() {
         super();
         this.state = {
             orderId: '1113',
             subtotal: 10,
-            itemId0:'3243',
-            itemId1:'3244',
-            itemId2:'3245',
+            itemId0: '3243',
+            itemId1: '3244',
+            itemId2: '3245',
             name0: '范文芳',
             name1: '机锋网',
             name2: '放弃而无法',
@@ -39,91 +39,92 @@ class App extends React.Component {
         });
     };
 
-    handleInputOrderIdChange(e){
+    handleInputOrderIdChange(e) {
         this.setState({
             orderId: e.target.value,
         })
     }
-    handleInputSubtotalChange(e){
+
+    handleInputSubtotalChange(e) {
         this.setState({
             subtotal: e.target.value,
         })
     }
 
-    handleInputItemId0Change(e){
+    handleInputItemId0Change(e) {
         this.setState({
             itemId0: e.target.value,
         })
     }
 
-    handleInputItemId1Change(e){
+    handleInputItemId1Change(e) {
         this.setState({
             itemId1: e.target.value,
         })
     }
 
-    handleInputItemId2Change(e){
+    handleInputItemId2Change(e) {
         this.setState({
             itemId2: e.target.value,
         })
     }
 
-    handleInputName0Change(e){
+    handleInputName0Change(e) {
         this.setState({
             name0: e.target.value,
         })
     }
 
-    handleInputName1Change(e){
+    handleInputName1Change(e) {
         this.setState({
             name1: e.target.value,
         })
     }
 
-    handleInputName2Change(e){
+    handleInputName2Change(e) {
         this.setState({
             name2: e.target.value,
         })
     }
 
-    handleInputPrice0Change(e){
+    handleInputPrice0Change(e) {
         this.setState({
             price0: e.target.value,
         })
     }
 
-    handleInputPrice1Change(e){
+    handleInputPrice1Change(e) {
         this.setState({
             price1: e.target.value,
         })
     }
 
-    handleInputPrice2Change(e){
+    handleInputPrice2Change(e) {
         this.setState({
             price2: e.target.value,
         })
     }
 
-    handleInputQuantity0Change(e){
+    handleInputQuantity0Change(e) {
         this.setState({
             quantity0: e.target.value,
         })
     }
 
-    handleInputQuantity1Change(e){
+    handleInputQuantity1Change(e) {
         this.setState({
             quantity1: e.target.value,
         })
     }
 
-    handleInputQuantity2Change(e){
+    handleInputQuantity2Change(e) {
         this.setState({
             quantity2: e.target.value,
         })
     }
 
 
-    handleSubmit(event){
+    handleSubmit(event) {
         event.preventDefault();
 
         let _order = {};
@@ -168,21 +169,35 @@ class App extends React.Component {
         return (
             <div>
                 <form name="orderForm" id="orderForm" onSubmit={this.handleSubmit.bind(this)}>
-                    orderId: <input type="text" name="orderId" value={this.state.orderId} onChange={this.handleInputOrderIdChange.bind(this)}/><br/>
-                    subtotal: <input type="text" name="subtotal" value={this.state.subtotal} onChange={this.handleInputSubtotalChange.bind(this)}/><br/>
+                    orderId: <input type="text" name="orderId" value={this.state.orderId}
+                                    onChange={this.handleInputOrderIdChange.bind(this)}/><br/>
+                    subtotal: <input type="text" name="subtotal" value={this.state.subtotal}
+                                     onChange={this.handleInputSubtotalChange.bind(this)}/><br/>
                     items:<br/>
-                    itemId: <input type="text" name="itemId" value={this.state.itemId0} onChange={this.handleInputItemId0Change.bind(this)}/><br/>
-                    name: <input type="text" name="name" value={this.state.name0} onChange={this.handleInputName0Change.bind(this)}/><br/>
-                    price: <input type="text" name="price" value={this.state.price0} onChange={this.handleInputPrice0Change.bind(this)}/><br/>
-                    quantity:<input type="text" name="quantity" value={this.state.quantity0} onChange={this.handleInputQuantity0Change.bind(this)}/><br/>
-                    itemId: <input type="text" name="itemId" value={this.state.itemId1} onChange={this.handleInputItemId1Change.bind(this)}/><br/>
-                    name: <input type="text" name="name" value={this.state.name1} onChange={this.handleInputName1Change.bind(this)}/><br/>
-                    price: <input type="text" name="price" value={this.state.price1} onChange={this.handleInputPrice1Change.bind(this)}/><br/>
-                    quantity:<input type="text" name="quantity" value={this.state.quantity1} onChange={this.handleInputQuantity1Change.bind(this)}/><br/>
-                    itemId: <input type="text" name="itemId" value={this.state.itemId2} onChange={this.handleInputItemId2Change.bind(this)}/><br/>
-                    name: <input type="text" name="name" value={this.state.name2} onChange={this.handleInputName2Change.bind(this)}/><br/>
-                    price: <input type="text" name="price" value={this.state.price2} onChange={this.handleInputPrice2Change.bind(this)}/><br/>
-                    quantity:<input type="text" name="quantity" value={this.state.quantity2} onChange={this.handleInputQuantity2Change.bind(this)}/><br/>
+                    itemId: <input type="text" name="itemId" value={this.state.itemId0}
+                                   onChange={this.handleInputItemId0Change.bind(this)}/><br/>
+                    name: <input type="text" name="name" value={this.state.name0}
+                                 onChange={this.handleInputName0Change.bind(this)}/><br/>
+                    price: <input type="text" name="price" value={this.state.price0}
+                                  onChange={this.handleInputPrice0Change.bind(this)}/><br/>
+                    quantity:<input type="text" name="quantity" value={this.state.quantity0}
+                                    onChange={this.handleInputQuantity0Change.bind(this)}/><br/>
+                    itemId: <input type="text" name="itemId" value={this.state.itemId1}
+                                   onChange={this.handleInputItemId1Change.bind(this)}/><br/>
+                    name: <input type="text" name="name" value={this.state.name1}
+                                 onChange={this.handleInputName1Change.bind(this)}/><br/>
+                    price: <input type="text" name="price" value={this.state.price1}
+                                  onChange={this.handleInputPrice1Change.bind(this)}/><br/>
+                    quantity:<input type="text" name="quantity" value={this.state.quantity1}
+                                    onChange={this.handleInputQuantity1Change.bind(this)}/><br/>
+                    itemId: <input type="text" name="itemId" value={this.state.itemId2}
+                                   onChange={this.handleInputItemId2Change.bind(this)}/><br/>
+                    name: <input type="text" name="name" value={this.state.name2}
+                                 onChange={this.handleInputName2Change.bind(this)}/><br/>
+                    price: <input type="text" name="price" value={this.state.price2}
+                                  onChange={this.handleInputPrice2Change.bind(this)}/><br/>
+                    quantity:<input type="text" name="quantity" value={this.state.quantity2}
+                                    onChange={this.handleInputQuantity2Change.bind(this)}/><br/>
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -194,9 +209,8 @@ class App extends React.Component {
         return (
             <div>
                 <h1>Hello World</h1>
-                {this.renderOrders()}
+                {this.props.viewer}
                 <div>
-                    {this.renderOrderForm()}
                 </div>
             </div>
         );
@@ -206,16 +220,28 @@ class App extends React.Component {
 
 export default Relay.createContainer(App, {
     fragments: {
-        orders: () => Relay.QL`
-        fragment on Orders{
-            orders (first: 15){
-                edges{
-                    node{
-                        orderId,
-                        subtotal,
-                    }
-                }
-            }
+        viewer: () => Relay.QL`
+        fragment on Viewer{
+                 _id
+                 subtotal
+                  orderId
+                  items{
+                    quantity
+                    name
+                    price
+                  }
+                  address{
+                    name
+                    tel
+                    weight
+                  }
+                  shipping{
+                    _id
+                    no
+                    url
+                    status
+                  }
+            
         }
         `,
     },

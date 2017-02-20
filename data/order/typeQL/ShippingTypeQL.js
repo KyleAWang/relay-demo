@@ -7,7 +7,8 @@ import {
     GraphQLList,
     GraphQLID,
     GraphQLFloat,
-    GraphQL
+    GraphQL,
+    GraphQLInputObjectType
 } from 'graphql';
 
 

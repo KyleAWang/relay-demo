@@ -4,7 +4,8 @@ import {
     GraphQLInt,
     GraphQLNonNull,
     GraphQLID,
-    GraphQLFloat
+    GraphQLFloat,
+    GraphQLInputObjectType
 } from 'graphql';
 
 export default new GraphQLObjectType({
@@ -24,7 +25,7 @@ export default new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLFloat)
         },
         quantity: {
-            type: new GraphQLNonNull(GraphQLInt)
+            type: GraphQLInt
         },
         subtotal: {
             type: new GraphQLNonNull(GraphQLFloat)
